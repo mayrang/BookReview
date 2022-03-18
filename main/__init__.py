@@ -9,3 +9,7 @@ app.config["SECRET_KEY"] = "elkajtlkajdlknatylk"
 
 mongo = PyMongo(app)
 
+from . import board
+
+app.register_blueprint(board.bp)
+

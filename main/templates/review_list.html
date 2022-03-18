@@ -1,8 +1,33 @@
-{% extents "main.html" %}
+{% extends "main.html" %}
 {% block title %}review_list{% endblock %}
-{% blcok contents %}
+{% block contents %}
 <script type="text/javascript">
-    
+    $("buttonSearch").click(function(){
+        var search = $("search").val();
+        var searchValue = $("searchValue").val();
+        var sortMethod = "{{sort_method}}";
+        var page = "{{page}}";
+        if(searchValue == ""){
+            return false;
+        }else{
+            self.location.href = "{{url_for('board.review_list')}}?page="+page+"&search="+search+"&seachValue="+searchValue+"&sortMethod="+sortMethod;
+        }
+    });
+    $("time").click(function(){
+        var sortMethod = $("time").data("method");
+        var search = "{{search}}";
+        var searchValue = "{{searchValue}}";
+        var page = "{{page}}";
+        self.location.href = "{{url_for('board.review_list')}}?page="+page+"&search="+search+"&searchValue="+searchValue+"&sortMethod="+sortMethod;
+
+    });
+    $("recommend").click(function(){
+        var sortMethod = $("recommend").data("method");
+        var search = "{{search}}";
+        var seachValue = "{{searchValue}}";
+        var page = "{{page}}"
+        self.location.href = "{{url_for('board.review_list')}}?page="+page+"&search="+search+"&searchValue="+searchValue+"&sortMethod="sortMethod;
+    });
 </script>
 <a href="#" onclick="" class="btn btn-primary" id="recommend">추천순</a>
 <a href="#" onclick="" class="btn btn-primary" id="time">최신순</a>
@@ -14,4 +39,9 @@
 </select>
 <input type="text" id="searchValue" name="searchValue" />
 <a href="#" id="searchButton" name="searchButton" class="btn btn-primary">검색</a>
+{% if sort_mehtod == "recommend" %}
+<a href="#" id="time" name="time" class="btn btn-primary">시간순</a>
+{% elif sort_method == "time" %}
+<a href="#" id="recommend" name="recommend" class="btn btn-primary">추천순</a>
+{% endif %}
 {% endblock contents %}
