@@ -1,0 +1,17 @@
+{% extents "main.html" %}
+{% block title %}review_list{% endblock %}
+{% blcok contents %}
+<script type="text/javascript">
+    
+</script>
+<a href="#" onclick="" class="btn btn-primary" id="recommend">추천순</a>
+<a href="#" onclick="" class="btn btn-primary" id="time">최신순</a>
+<select id="search" name="search">
+    <option value="1">제목</option>
+    <option value="2">내용</option>
+    <option value="3">제목+내용</option>
+    <option value="4">작성자</option>
+</select>
+<input type="text" id="searchValue" name="searchValue" />
+<a href="#" id="searchButton" name="searchButton" class="btn btn-primary">검색</a>
+{% endblock contents %}
