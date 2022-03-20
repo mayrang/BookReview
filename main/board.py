@@ -1,6 +1,7 @@
 from pydoc import render_doc
 from main import redirect, url_for, request, mongo
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, abort
+from flask_pymongo import ObjectId
 import math
 from datetime import datetime
 
@@ -74,3 +75,26 @@ def write_review():
         idx = review.insert_one(post)
         return redirect(url_for('board.review_list'))
         
+        
+@bp.route("/review_view/<idx>")
+def review_view(idx):
+    sort_method = request.args.get("sortMethod")
+    search = request.args.get("search")
+    search_value = request.args.get("searchValue")
+    review = mongo.db.review
+    view = review.find_one_and_update({"_id": ObjectId(idx)},
+                                      {"$inc": {"view_count": 1}},
+                                      return_document=True)
+    if view is not None:
+        review = {
+            "name": view.get("name"),
+            "title": view.get("title"),
+            "content": view.get("content"),
+            "pub_time": view.get("pub_time"),
+            "view_count": view.get('view_count')
+        }
+        return render_template("review_view.html", review=review,
+                                                search=search,
+                                                search_value=search_value,
+                                                sort_method=sort_method)  
+    return abort(404) 

@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+{% block content %}
+<table class="table table-bodered">
+    <tr>
+        <td colspan="2">{{review.title}}</td>
+    </tr>
+    <tr>
+        <td>{{review.name}}</td>
+        <td class="text-right">{{review.pub_time|formatdatetime}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><div style="min-height:200px;">{{review.content}}</div></td>
+    </tr>
+</table>
+<a href="{{url_for('board.review_list', search=search, searchValue=search_value, sortMethod=sort_mehtod)}}" class="btn btn-primary">이전</a>
+{% endblock content %}
