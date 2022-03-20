@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block contents %}
+<form method="post">
+    <div class="form-group">
+        <label for="userName">이름</label>
+        <input type="text" name="user_name" id="userName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" name="title" id="title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="content">내용</label>
+        <textarea name="content" id="content" class="form-contol"></textarea>
+    </div>
+    <input type="submit" value="저장" class="btn btn-primary" />
+</form>
+{% endblock contents %}

@@ -2,6 +2,8 @@ from pydoc import render_doc
 from main import redirect, url_for, request, mongo
 from flask import Blueprint, render_template
 import math
+from datetime import datetime
+
 
 bp = Blueprint("board", __name__, url_prefix="/board")
 
@@ -43,9 +45,32 @@ def review_list():
                                                 sort_method=sort_method,
                                                 last_page_num=last_page_num,
                                                 page_block=page_block,
+                                                page=page,
+                                                limit=limit,
                                                 block_start=block_start,
                                                 block_end=block_end)
     
     
+@bp.route("/write_review", methods=["POST", "GET"])
+def write_review():
+    if request.method == "GET":
+        return render_template("write_review.html")
+    else:
+        name = request.form.get("user_name")
+        title = request.form.get("title")
+        content = request.form.get("content")
+        pub_time = round(datetime.utcnow().timestamp() * 1000)
+        view_count = 0
+        recommend_count = 0
+        review = mongo.db.review
+        post = {
+            "name": name,
+            "title": title,
+            "content": content,
+            "pub_time": pub_time,
+            "view_count": view_count,
+            "recommend_count": recommend_count
+        }
+        idx = review.insert_one(post)
+        return redirect(url_for('board.review_list'))
         
-                        

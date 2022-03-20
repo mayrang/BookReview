@@ -30,6 +30,24 @@
     });
 </script>
 <table class="table">
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>추천수</th>
+            <th>작성시간</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for review in review_list %}
+        <td>{{loop.index + (page-1) * limit}}</td>
+        <td>{{review.title}}</td>
+        <td>{{review.user_name}}</td>
+        <td>{{review.recommend_count}}</td>
+        <td>{{review.pub_time | formatdatetime }}</td>
+        {% endfor %}
+    </tbody>
 </table>
 <ul class="pagination justfy-content-center">
 {% if block_start > 1 %}
@@ -61,4 +79,5 @@
 {% elif sort_method == "time" %}
 <a href="#" id="recommend" name="recommend" class="btn btn-primary">추천순</a>
 {% endif %}
+<a href="{{url_for('board.write_review')}}" class="btn btn-primary">글 작성하기</a>
 {% endblock contents %}
