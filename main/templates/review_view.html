@@ -12,5 +12,6 @@
         <td colspan="2"><div style="min-height:200px;">{{review.content}}</div></td>
     </tr>
 </table>
+<br>
 <a href="{{url_for('board.review_list', search=search, searchValue=search_value, sortMethod=sort_mehtod)}}" class="btn btn-primary">이전</a>
 {% endblock content %}
