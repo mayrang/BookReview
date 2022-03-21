@@ -15,6 +15,13 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script type="text/javascript">
+        alert("{{messages[-1]}}")
+    </script>
+    {% endif %}
+    {% endwith %}
     <div class="container">
     {% block content %}
     {% endblock content %}
