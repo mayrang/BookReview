@@ -59,6 +59,7 @@ def login():
         session["id"] = str(user_one.get("_id"))
         session["name"] = str(user_one.get("name"))
         session["email"] = str(user_one.get("email"))
+        session.permanent = True
         return redirect(url_for('board.review_list'))
     else:
         return render_template("user_login.html")
