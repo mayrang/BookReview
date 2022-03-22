@@ -38,3 +38,28 @@ def join():
     else:
         return render_template("user_join.html")
         
+        
+@bp.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        if email == "" or password == "":
+            flash("입력하지 않은 항목이 있습니다.")
+            return redirect(url_for('user.login'))
+        user = mongo.db.user
+        email_check = user.count_documents({"email" : email})
+        if email_check == 0:
+            flash("이메일이 올바르지 않습니다.")
+            return redirect(url_for('user.login'))
+        user_one = user.find_one({"email" : email})
+        if not check_password(user_one.get("password"), password):
+            flash("비밀번호가 올바르지 않습니다.")
+            return redirect(url_for('user.login'))
+        session["id"] = str(user_one.get("_id"))
+        session["name"] = str(user_one.get("name"))
+        session["email"] = str(user_one.get("email"))
+        return redirect(url_for('board.review_list'))
+    else:
+        return render_template("user_login.html")
+
