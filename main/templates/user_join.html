@@ -1,7 +1,37 @@
 {% extends 'main.html' %}
-
+{% block title %}user_join{% endblock title %}
+{% include "email_validate.html" %}
 {% block content %}
-<form method="post" >
+<script type="text/javascript">
+    function checkJoinForm(){
+        if($.trim($("#name").val()) == ""){
+            alert("이름을 입력해주세요.");
+            return false;
+        }
+        if($.trim($("#email").val()) == ""){
+            alert("이메일을 입력해주세요.");
+            return false;
+        }
+        if(!emailValidate($.trim($("#email").val()))){
+            alert("이메일의 형식이 잘못되었습니다.");
+            return false;
+        }
+        if($.trim($("#password1").val()) == ""){
+            alert("비밀번호를 입력해주세요.");
+            return false;
+        }
+        if($.trim($("#password2").val()) == ""){
+            alert("비밀번호확인을 입력해주세요");
+            return false;
+        }
+        if($("#password1").val() != $("password2").val()){
+            alert("비밀번호가 서로 일치하지 않습니다.");
+            return false;
+        }
+        return true;
+    }
+</script>
+<form method="post" onsubmit="return checkJoinForm()">
     <div class="form-group">
         <label for="name">이름</label>
         <input type="text" name="name" id="name" class="form-control" />

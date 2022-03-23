@@ -1,6 +1,25 @@
 {% extends 'main.html' %}
+{% include 'email_validate.html' %}
+{% block title %}user_login{% endblock title %}
 {% block content %}
-<form method="post">
+<script type="text/javascript">
+    function checkLoginForm(){
+        if($.trim($("#email").val()) == ""){
+            alert("이메일을 입력하세요");
+            return false;
+        }
+        if(!checkLoginForm($.trim($("#email").val()))){
+            alert("이메일이 유효하지 않습니다.");
+            return false;
+        }
+        if($.trim($("#password").val()) == ""){
+            alert("비밀번호를 입력하세요");
+            return false;
+        }
+        return true;
+    }
+</script>
+<form method="post" onsubmit="return checkLoginForm()">
     <div class="form-group">
         <label for="email">이메일</label>
         <input type="email" name="email" id="email" class="form-control" />
