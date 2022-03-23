@@ -1,5 +1,26 @@
 {% extends "main.html" %}
 {% block content %}
+<script type="text/javascript">
+    $(document).reday(function(){
+        $("#summernote").summernote({
+            height: 300,
+            minHeight: null,
+            maxHeight: null,
+            lang: "ko-KR",
+            popover: {
+                image: [],
+                link: [],
+                air: []
+            },
+            callbacks: {
+                onImageUpload: function(image){
+                    for(var i=0; i<image.length; i++){
+                        uploadImage(image[i]);
+                    }
+                }
+            }
+        });
+    });
 <form method="post">
     <div class="form-group">
         <label for="userName">이름</label>
@@ -10,8 +31,8 @@
         <input type="text" name="title" id="title" class="form-control" />
     </div>
     <div class="form-group">
-        <label for="content">내용</label>
-        <textarea name="content" id="content" class="form-contol"></textarea>
+        <label for="summernote">내용</label>
+        <textarea name="content" id="summernote" class="form-contol"></textarea>
     </div>
     <input type="submit" value="저장" class="btn btn-primary" />
 </form>
